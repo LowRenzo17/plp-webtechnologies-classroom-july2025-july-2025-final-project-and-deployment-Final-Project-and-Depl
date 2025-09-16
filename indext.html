@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuFind - Lost & Found Documents Recovery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+     <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-id-card"></i>
+                <h1>DocuFind</h1>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="showSection('home')">Home</a></li>
+                    <li><a href="#" onclick="showSection('report')">Report</a></li>
+                    <li><a href="#" onclick="showSection('search')">Search</a></li>
+                    <li><a href="#" onclick="showSection('map')">Map</a></li>
+                </ul>
+            </nav>
+            
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-outline" onclick="showLoginModal()">Login</a>
+                <a href="#" class="btn btn-primary" onclick="showRegisterModal()">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Sections -->
+    <main>
+        <!-- Home Section -->
+        <section id="home-section" class="section">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="container hero-content">
+                    <h2>Reuniting Lost Documents with Their Owners</h2>
+                    <p>DocuFind helps you report, search, and recover lost ID cards, passports, driver's licenses, certificates, and other important documents securely and efficiently.</p>
+                    
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary" onclick="showSection('search')"><i class="fas fa-search"></i> Search Documents</a>
+                        <a href="#" class="btn btn-outline" onclick="showReportModal()"><i class="fas fa-plus-circle"></i> Report Document</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>How We Help</h2>
+                        <p>Our platform makes it easy to report and recover lost documents through a secure and efficient process.</p>
+                    </div>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <h3>Report Lost Documents</h3>
+                            <p>Quickly report your lost ID, passport, or other important documents with our simple form.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Report Found Documents</h3>
+                            <p>Found someone's document? Report it here to help reunite it with its owner.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3>Search Database</h3>
+                            <p>Search our database for your lost documents using various search criteria.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <h3>Location Tracking</h3>
+                            <p>See where documents have been found on our interactive map with Google Maps integration.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Secure Verification</h3>
+                            <p>We protect your privacy and verify ownership before releasing any documents.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h3>Get Notified</h3>
+                            <p>Receive email or SMS alerts when a document matching your description is reported.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How It Works -->
+            <div class="how-it-works">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>How It Works</h2>
+                        <p>Our simple process makes it easy to report and recover lost documents</p>
+                    </div>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <h3>Report</h3>
+                            <p>Report a lost or found document using our simple form</p>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <h3>Search</h3>
+                            <p>Search our database or check the interactive map</p>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <h3>Verify</h3>
+                            <p>Complete our secure verification process</p>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <h3>Recover</h3>
+                            <p>Arrange pickup from the nearest collection point</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Report Section -->
+        <section id="report-section" class="section" style="display: none;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Report a Document</h2>
+                    <p>Help us reunite lost documents with their owners by reporting found documents or your own lost documents</p>
+                </div>
+                
+                <div class="search-box">
+                    <div class="form-group">
+                        <label>Report Type</label>
+                        <div>
+                            <input type="radio" id="lost" name="reportType" value="lost" checked>
+                            <label for="lost">Lost Document</label>
+                            <input type="radio" id="found" name="reportType" value="found">
+                            <label for="found">Found Document</label>
+                        </div>
+                    </div>
+                    
+                    <form id="reportForm">
+                        <div class="form-group">
+                            <label for="docType">Document Type</label>
+                            <select id="docType" required>
+                                <option value="">Select Document Type</option>
+                                <option value="id">ID Card</option>
+                                <option value="passport">Passport</option>
+                                <option value="license">Driver's License</option>
+                                <option value="certificate">Certificate</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="docName">Name on Document</label>
+                            <input type="text" id="docName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="docDescription">Description</label>
+                            <textarea id="docDescription" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="docLocation">Location (City or Area)</label>
+                            <input type="text" id="docLocation" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactEmail">Your Email</label>
+                            <input type="email" id="contactEmail" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactPhone">Your Phone (optional)</label>
+                            <input type="tel" id="contactPhone">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Submit Report</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section id="search-section" class="section" style="display: none;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Search for Documents</h2>
+                    <p>Look through our database for your lost documents or documents you've found</p>
+                </div>
+                
+                <div class="search-box">
+                    <form id="searchForm" class="search-form">
+                        <div class="form-group">
+                            <label for="search-document-type">Document Type</label>
+                            <select id="search-document-type">
+                                <option value="">Select Document Type</option>
+                                <option value="id">ID Card</option>
+                                <option value="passport">Passport</option>
+                                <option value="license">Driver's License</option>
+                                <option value="certificate">Certificate</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="search-name">Name on Document (if known)</label>
+                            <input type="text" id="search-name" placeholder="Enter full or partial name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="search-location">Location (City or Area)</label>
+                            <input type="text" id="search-location" placeholder="Where was it lost/found?">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="search-date">Date Lost/Found (approximate)</label>
+                            <input type="date" id="search-date">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Search Database</button>
+                    </form>
+                </div>
+
+                <div class="search-results" id="search-results-container">
+                    <h3>Search Results</h3>
+                    <div id="search-results">
+                        <!-- Results will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section id="map-section" class="section" style="display: none;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Documents Map</h2>
+                    <p>See where documents have been found or reported lost</p>
+                </div>
+                
+                <div id="map"></div>
+
+                <div class="search-results" id="map-results">
+                    <h3>Recently Found Documents</h3>
+                    <div id="map-documents-list">
+                        <!-- Documents will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <!-- Report Modal -->
+    <div id="reportModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('reportModal')">&times;</span>
+            <h2>Report a Document</h2>
+            <form id="modalReportForm">
+                <div class="form-group">
+                    <label>Report Type</label>
+                    <div>
+                        <input type="radio" id="modal-lost" name="modalReportType" value="lost" checked>
+                        <label for="modal-lost">Lost Document</label>
+                        <input type="radio" id="modal-found" name="modalReportType" value="found">
+                        <label for="modal-found">Found Document</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modal-docType">Document Type</label>
+                    <select id="modal-docType" required>
+                        <option value="">Select Document Type</option>
+                        <option value="id">ID Card</option>
+                        <option value="passport">Passport</option>
+                        <option value="license">Driver's License</option>
+                        <option value="certificate">Certificate</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modal-docName">Name on Document</label>
+                    <input type="text" id="modal-docName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modal-docDescription">Description</label>
+                    <textarea id="modal-docDescription" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modal-docLocation">Location (City or Area)</label>
+                    <input type="text" id="modal-docLocation" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modal-contactEmail">Your Email</label>
+                    <input type="email" id="modal-contactEmail" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modal-contactPhone">Your Phone (optional)</label>
+                    <input type="tel" id="modal-contactPhone">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit Report</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login to Your Account</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#" onclick="closeModal('loginModal'); showRegisterModal()">Register here</a></p>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Create an Account</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+            <p>Already have an account? <a href="#" onclick="closeModal('registerModal'); showLoginModal()">Login here</a></p>
+        </div>
+    </div>
+
+    <!-- Document Details Modal -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('detailsModal')">&times;</span>
+            <h2>Document Details</h2>
+            <div id="document-details">
+                <!-- Details will be displayed here -->
+            </div>
+            <button class="btn btn-primary" onclick="claimDocument()">Claim This Document</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>DocuFind</h3>
+                    <p>Helping people reunite with their lost important documents since 2025.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#" onclick="showSection('home')">Home</a></li>
+                        <li><a href="#" onclick="showSection('report')">Report Document</a></li>
+                        <li><a href="#" onclick="showSection('search')">Search Database</a></li>
+                        <li><a href="#" onclick="showSection('map')">Document Map</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> lorenzorenzo1738@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +254713398446</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025DocuFind. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+    
+</body>
+</html>
